@@ -1,0 +1,26 @@
+# Temporary directories and files
+tmp/
+*.tmp
+*.log
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Inspection & visual render artifacts
+*.ndjson
+audit_work/*.png
+audit_work/*.txt
+
+# Intermediate presentation drafts (clean deliverable mode)
+output/TeamFade_ConceptDeck_*.pptx
