@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>AgriLoop — Prototype (Idea Stage)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50:'#f0fdf4', 100:'#dcfce7', 200:'#bbf7d0', 300:'#86efac', 400:'#4ade80', 500:'#22c55e', 600:'#16a34a', 700:'#15803d', 800:'#166534', 900:'#14532d' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    [x-cloak] { display: none !important; }
+    .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0); }
+    .card-shadow { box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06); }
+    .badge-sale { background: #dbeafe; color: #1e40af; }
+    .badge-donation { background: #fce7f3; color: #9d174d; }
+    .badge-retail { background: #e0e7ff; color: #3730a3; }
+    .badge-wholesale { background: #fef3c7; color: #92400e; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased min-h-screen">
+  <!-- App root -->
+  <div id="app" class="max-w-md mx-auto min-h-screen flex flex-col bg-white relative">
+
+    <!-- Top bar -->
+    <header class="sticky top-0 z-30 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm">AL</div>
+        <div>
+          <h1 class="text-base font-semibold leading-tight">AgriLoop</h1>
+          <p class="text-[10px] text-gray-500 leading-none">Idea-stage UI prototype · Synthetic data</p>
+        </div>
+      </div>
+      <button id="roleBtn" class="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200">
+        Role: <span id="roleLabel">Buyer</span>
+      </button>
+    </header>
+
+    <!-- Main content -->
+    <main id="main" class="flex-1 overflow-y-auto pb-20">
+      <!-- Views injected here -->
+    </main>
+
+    <!-- Bottom nav -->
+    <nav id="bottomNav" class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 safe-bottom z-30">
+      <div class="flex justify-around py-2 text-[11px]">
+        <button data-view="discover" class="nav-btn flex flex-col items-center gap-0.5 text-brand-600 font-medium">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          Discover
+        </button>
+        <button data-view="reservations" class="nav-btn flex flex-col items-center gap-0.5 text-gray-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          My activity
+        </button>
+        <button data-view="vendor" class="nav-btn flex flex-col items-center gap-0.5 text-gray-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          Vendor
+        </button>
+        <button data-view="admin" class="nav-btn flex flex-col items-center gap-0.5 text-gray-500">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          Admin
+        </button>
+      </div>
+    </nav>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 max-w-sm w-[90%] bg-gray-900 text-white text-sm px-4 py-2.5 rounded-lg shadow-lg opacity-0 pointer-events-none transition-opacity z-50 text-center"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="AgriLoop Prototype 2 — an idea-stage, simulated dashboard for surplus food collection. No real food, payments or partners." />
+  <meta name="color-scheme" content="light" />
+  <title>AgriLoop — Prototype 2 (simulated)</title>
+  <link rel="stylesheet" href="css/app.css" />
+  <script>
+    /* Fail loudly if opened from a file system that blocks local scripts. */
+    window.addEventListener('error', function (e) {
+      if (e && e.target && e.target.tagName === 'SCRIPT') {
+        document.body.insertAdjacentHTML('afterbegin',
+          '<p style="padding:16px;font:16px system-ui;background:#fbeaea;color:#7a1f1f">' +
+          'This demo could not load its scripts. Open the folder with a local server ' +
+          '(<code>python -m http.server 8080</code>) or check that js/ files exist.</p>');
+      }
+    });
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to main content</a>
+
+  <div class="app" id="app">
+    <header class="topbar" role="banner">
+      <div class="topbar__left">
+        <a class="brand" href="#/home" aria-label="AgriLoop home">
+          <span class="brand__mark" aria-hidden="true"></span>
+          <span class="brand__text">
+            <span class="brand__name">AgriLoop</span>
+            <span class="brand__sub">Prototype 2 · simulated</span>
+          </span>
+        </a>
+      </div>
+
+      <div class="topbar__right">
+        <div class="clock" id="clock" title="Simulated server time (Asia/Colombo)">
+          <span class="clock__dot" aria-hidden="true"></span>
+          <span id="clockText">—</span>
+        </div>
+
+        <button class="pill" id="netBtn" type="button" aria-pressed="false" title="Toggle simulated connectivity">
+          <span class="dot" aria-hidden="true"></span><span id="netText">Online</span>
+        </button>
+
+        <label class="actor">
+          <span class="sr-only">Acting as</span>
+          <select id="actorSelect"></select>
+        </label>
+
+        <div class="menu">
+          <button class="btn btn-ghost btn-sm" id="demoBtn" type="button" aria-expanded="false" aria-haspopup="true" aria-label="Demo tools">
+            <span class="btn__icon" data-icon="spark"></span>
+            <span class="btn__label">Demo tools</span>
+            <span aria-hidden="true" class="menu__caret">▾</span>
+          </button>
+          <div class="menu__panel" id="demoMenu" hidden>
+            <p class="menu__label">Time machine</p>
+            <button type="button" data-demo="+15">Advance 15 minutes</button>
+            <button type="button" data-demo="+60">Advance 1 hour</button>
+            <button type="button" data-demo="+1d">Advance 1 day</button>
+            <p class="menu__label">Demo data</p>
+            <button type="button" data-demo="seed">Seed rich demo data</button>
+            <button type="button" data-demo="export">Export records (JSON)</button>
+            <button type="button" data-demo="reset">Reset to first-run state</button>
+            <p class="menu__label">Shortcuts</p>
+            <button type="button" data-nav="#/lab">Scenario lab (18 checks)</button>
+            <button type="button" data-nav="#/admin">Operations dashboard</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="shell">
+      <nav class="sidebar" id="sidebar" aria-label="Main">
+        <div class="sidebar__group">
+          <a class="navlink" data-nav="#/home" href="#/home">
+            <span class="navlink__icon" data-icon="home"></span><span>Start here</span>
+          </a>
+          <a class="navlink" data-nav="#/discover" href="#/discover">
+            <span class="navlink__icon" data-icon="search"></span><span>Discover food</span>
+            <span class="navlink__count" id="navCount"></span>
+          </a>
+          <a class="navlink" data-nav="#/pickups" href="#/pickups">
+            <span class="navlink__icon" data-icon="ticket"></span><span>My pickups</span>
+            <span class="navlink__count" id="navPickups"></span>
+          </a>
+          <a class="navlink" data-nav="#/workspace" href="#/workspace">
+            <span class="navlink__icon" data-icon="store"></span><span>Workspace</span>
+          </a>
+          <a class="navlink" data-nav="#/learn" href="#/learn">
+            <span class="navlink__icon" data-icon="book"></span><span>Learn &amp; glossary</span>
+          </a>
+        </div>
+
+        <div class="sidebar__group sidebar__group--tools">
+          <p class="sidebar__label">For the team</p>
+          <a class="navlink navlink--sm" data-nav="#/lab" href="#/lab">
+            <span class="navlink__icon" data-icon="check"></span><span>Scenario lab</span>
+          </a>
+          <a class="navlink navlink--sm" data-nav="#/admin" href="#/admin">
+            <span class="navlink__icon" data-icon="chart"></span><span>Ops dashboard</span>
+          </a>
+        </div>
+
+        <div class="sidebar__foot">
+          <p class="side-note">
+            <strong>Idea stage.</strong> Every name, price and quantity here is simulated for the demo.
+            Nothing is a real partner, payment or food transfer.
+          </p>
+          <button class="btn btn-ghost btn-sm btn-block" type="button" data-act="start-tour">
+            <span data-icon="play"></span> Guided tour
+          </button>
+        </div>
+      </nav>
+
+      <main id="main" tabindex="-1" class="main"></main>
+    </div>
+
+    <nav class="tabbar" id="tabbar" aria-label="Main (compact)">
+      <a data-nav="#/home" href="#/home"><span data-icon="home"></span><span>Home</span></a>
+      <a data-nav="#/discover" href="#/discover"><span data-icon="search"></span><span>Discover</span></a>
+      <a data-nav="#/pickups" href="#/pickups"><span data-icon="ticket"></span><span>Pickups</span></a>
+      <a data-nav="#/workspace" href="#/workspace"><span data-icon="store"></span><span>Work</span></a>
+      <a data-nav="#/learn" href="#/learn"><span data-icon="book"></span><span>Learn</span></a>
+    </nav>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog class="dialog" id="dialog" aria-labelledby="dialogTitle">
+    <div class="dialog__inner" id="dialogBody"></div>
+  </dialog>
+
+  <div class="tour" id="tour" hidden>
+    <div class="tour__body">
+      <p class="tour__step" id="tourStep">Step 1 of 8</p>
+      <p class="tour__text" id="tourText"></p>
+    </div>
+    <div class="tour__actions">
+      <button class="btn btn-ghost btn-sm" type="button" data-act="tour-exit">Exit tour</button>
+      <button class="btn btn-primary btn-sm" type="button" data-act="tour-next" id="tourNext">Next</button>
+    </div>
+  </div>
+
+  <script src="js/core.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/views.js"></script>
+  <script src="js/workspace.js"></script>
+  <script src="js/scenarios.js"></script>
+  <script src="js/learn.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
